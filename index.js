@@ -35,11 +35,7 @@ app.use(mongoSanitize());
 app.use(cookieParser(config.COOKIE_SECRET));
 app.use(
   cors({
-    origin: [
-      config.ORIGIN,
-      "http://localhost:5173",
-      "http://192.168.134.107:5173",
-    ],
+    origin:  "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: [
