@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 const userSchema = z.object({
   name: z.string().min(3).max(50).optional(),
