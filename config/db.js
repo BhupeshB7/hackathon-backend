@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import config from "./constant.js";
 const connectDB = async () => {
   try {
-    await mongoose.connect(config.MONGODB_URI, {
+      await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@cluster0.dbe8y5j.mongodb.net/", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
