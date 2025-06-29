@@ -186,7 +186,7 @@ export const getFileMetadata = async (req, res, next) => {
       extension: file.extension,
       uploadDate: file.createdAt,
       owner: req?.user?.name || req?.user?.email || "Anonymous",
-      url: `http://localhost:3000/api/files/${fileId}`,
+      url: `https://hackathon-backend-chi-two.vercel.app/api/files/${fileId}`,
       fileMode: req.user ? "private" : "view",
     });
   } catch (err) {

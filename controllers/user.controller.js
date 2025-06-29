@@ -135,7 +135,8 @@ export const loginUser = async (req, res, next) => {
           httpOnly: true,
           signed: true,
           sameSite: "none",
-          secure: true,     
+          secure: true,   
+          domain: '.netlify.app'  
       });
     
     res.status(200).json({
