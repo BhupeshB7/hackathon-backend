@@ -24,10 +24,12 @@
     "google-auth-library": "^10.1.0",
     "handlebars": "^4.7.8",
     "helmet": "^8.1.0",
+    "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
     "mime-types": "^2.1.35",
     "mongoose": "^8.15.2",
     "nodemailer": "^6.10.1",
+    "ua-parser-js": "^2.0.4",
     "xss-clean": "^0.1.4",
     "zod": "^3.25.64"
   }
