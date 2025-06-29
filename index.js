@@ -13,69 +13,74 @@ await connectDB();
 
 const app = express();
 
+// Middlewares before all routes
 app.use(express.json());
-// Security Middleware
+
+// ✅ Log origin for debug (optional)
+app.use((req, res, next) => {
+    console.log("Origin:", req.headers.origin);
+    next();
+});
+
+// ✅ CORS config
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://hackathon-google-drive.netlify.app",
+    "https://hackathon-fronted-zeta.vercel.app",
+    "https://codingott-google-drive.netlify.app",
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "Content-Length",
+        "X-Requested-With",
+        "dirname",
+        "filename",
+    ],
+}));
+
+// ✅ Important: Handle preflight requests
+app.options("*", cors());
+
+// ✅ Security middleware
 app.use(
     helmet({
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                frameAncestors: ["'self'", "http://localhost:5173",
-                    "https://hackathon-google-drive.netlify.app",
-                    "https://hackathon-fronted-zeta.vercel.app/",
-                    "https://codingott-google-drive.netlify.app",],
+                frameAncestors: allowedOrigins,
             },
         },
-        // crossOriginEmbedderPolicy: false,
         crossOriginResourcePolicy: { policy: "cross-origin" },
     })
 );
 
 app.use(xssClean());
 app.use(mongoSanitize());
-
-// Core Middlewares
 app.use(cookieParser(config.COOKIE_SECRET));
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            const allowedOrigins = [
-                "http://localhost:5173",
-                "https://hackathon-google-drive.netlify.app",
-                "https://hackathon-fronted-zeta.vercel.app/",
-                "https://codingott-google-drive.netlify.app",
-            ];
-            
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-        credentials: true,
-        allowedHeaders: [
-            "Content-Type",
-            "Authorization",
-            "Content-Length",
-            "X-Requested-With",
-            "dirname",
-            "filename",
-        ],
-    })
-);
-// Routes
+// ✅ Routes
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
 app.use("/api", allRoutes);
 
-//  Global Error Handler
+// ✅ Global Error Handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error("Error:", err.stack);
     res.status(500).send("Internal Server Error");
-    next();
 });
 
 app.listen(port, () => {
