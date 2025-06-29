@@ -30,8 +30,7 @@ const otpSchema = new mongoose.Schema({
         default: false,
     },
 });
-
-otpSchema.index({ email: 1 });
+ 
 
 const OTP = mongoose.model("OTP", otpSchema);
 
