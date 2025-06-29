@@ -33,22 +33,33 @@ app.use(mongoSanitize());
 
 // Core Middlewares
 app.use(cookieParser(config.COOKIE_SECRET));
+ 
 app.use(
   cors({
-    origin:  "*",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Content-Length",
-      "X-Requested-With",
-      "dirname",
-      "filename",
-    ],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:5173", // Development origin
+        "https://codingott-google-drive.netlify.app", // Production origin
+      ];
+       
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true, 
+      allowedHeaders: [
+          "Content-Type",
+          "Authorization",
+          "Content-Length",
+          "X-Requested-With",
+          "dirname",
+          "filename",
+      ],
   })
 );
-
 // Routes
 app.get("/", (req, res) => {
   res.send("Hello World!");
