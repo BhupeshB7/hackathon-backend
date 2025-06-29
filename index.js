@@ -20,7 +20,10 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                frameAncestors: ["'self'", "http://localhost:5173"],
+                frameAncestors: ["'self'", "http://localhost:5173",
+                    "https://hackathon-google-drive.netlify.app",
+                    "https://hackathon-fronted-zeta.vercel.app/",
+                    "https://codingott-google-drive.netlify.app",],
             },
         },
         // crossOriginEmbedderPolicy: false,
@@ -40,6 +43,7 @@ app.use(
             const allowedOrigins = [
                 "http://localhost:5173",
                 "https://hackathon-google-drive.netlify.app",
+                "https://hackathon-fronted-zeta.vercel.app/",
                 "https://codingott-google-drive.netlify.app",
             ];
             

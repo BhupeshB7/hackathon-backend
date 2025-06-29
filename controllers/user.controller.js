@@ -131,11 +131,12 @@ export const loginUser = async (req, res, next) => {
     });
 
       
-      res.cookie("google_drive_session", session._id, {
+    res.cookie("google_drive_session", session._id, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
         secure: true,
         signed: true,
+        sameSite: 'none' 
       });
     res.status(200).json({
       message: "Login successful",
@@ -233,6 +234,7 @@ export const googleLogin = async (req, res, next) => {
         { upsert: true, new: true, session: dbSession }
       );
       const userSession = await Session.create({ userId: userDetails._id });
+      console.log(userSession)
       res.cookie("google_drive_session", userSession.id, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
