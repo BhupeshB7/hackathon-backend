@@ -236,10 +236,11 @@ export const googleLogin = async (req, res, next) => {
       const userSession = await Session.create({ userId: userDetails._id });
       console.log(userSession)
       res.cookie("google_drive_session", userSession.id, {
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: true,
-        secure: true,
-        signed: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+          secure: true,
+          signed: true,
+          sameSite: 'none' 
       });
 
       await dbSession.commitTransaction();
@@ -258,10 +259,11 @@ export const googleLogin = async (req, res, next) => {
 
       const userSession = await Session.create({ userId: user._id });
       res.cookie("google_drive_session", userSession.id, {
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: true,
-        secure: true,
-        signed: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+          secure: true,
+          signed: true,
+          sameSite: 'none' 
       });
 
       await dbSession.commitTransaction();
