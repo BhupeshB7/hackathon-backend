@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import config from "./constant.js";
 const connectDB = async () => {
   try {
-      await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@cluster0.dbe8y5j.mongodb.net/", {
+      await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@cluster0.dbe8y5j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+    //   await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@cluster0.dbe8y5j.mongodb.net/", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
