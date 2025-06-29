@@ -134,8 +134,8 @@ export const loginUser = async (req, res, next) => {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           httpOnly: true,
           signed: true,
-          sameSite: "strict",
-          secure: true,     // ✅ temporarily disable for local backend testing
+          sameSite: "none",
+          secure: true,     
       });
     
     res.status(200).json({

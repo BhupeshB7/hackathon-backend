@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
-import config from "./constant.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 const connectDB = async () => {
-  try {
-      await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@google-drive-clustor.vrpzvom.mongodb.net/?retryWrites=true&w=majority&appName=google-drive-clustor", {
-    //   await mongoose.connect("mongodb+srv://bhupeshkr2912:TzPTM4Bz0QusY00O@cluster0.dbe8y5j.mongodb.net/", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, 
-    });
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.log("Error connecting to MongoDB:", err);
-  }
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 10000, // Optional: Wait longer
+        });
+        console.log("✅ MongoDB Connected");
+    } catch (err) {
+        console.error("❌ MongoDB connection error:", err.message);
+    }
 };
 
 export default connectDB;
-//TzPTM4Bz0QusY00O
