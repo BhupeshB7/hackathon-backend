@@ -37,7 +37,7 @@ app.use(
   cors({
     origin: [
       config.ORIGIN,
-      "http://192.168.139.86:5173",
+      "http://localhost:5173",
       "http://192.168.134.107:5173",
     ],
     credentials: true,
